@@ -24,7 +24,7 @@ async function handleGenerateNewShortURL(req, res) {
 
         return res.render("showShortUrl", {
             url: newUrl,
-            shortUrl: `http://localhost:8000/url/${id}`,
+            shortUrl: `https://urlshortener/${id}`,
         });
     } catch (error) {
         console.error("Error generating short URL:", error);
