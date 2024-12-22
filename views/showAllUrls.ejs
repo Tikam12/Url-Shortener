@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Short URL</title>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 min-h-screen p-0">
+
+    <!-- Table Section -->
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-5xl mx-auto mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Previously Shortened URLs</h2>
+        <p class="text-gray-700 mb-4">
+            The table below provides a summary of your shortened URLs, including the original links and the total number
+            of clicks each link has received.
+            Click on a short URL to open it in a new tab.
+        </p>
+
+        <!-- Table -->
+        <div class="overflow-x-auto rounded-lg shadow-lg">
+            <table class="min-w-full border-collapse border border-gray-300 text-sm">
+                <thead class="bg-blue-500 text-white">
+                    <tr>
+                        <th class="border border-gray-300 px-6 py-3">Short URL</th>
+                        <th class="border border-gray-300 px-6 py-3">Original URL</th>
+                        <th class="border border-gray-300 px-6 py-3">Total Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% urls.forEach(url=> { %>
+                        <tr class="hover:bg-gray-100">
+                            <td class="border border-gray-300 px-6 py-3 text-blue-500">
+                                <a href="http://localhost:8000/url/<%= url.ShortId %>" target="_blank"
+                                    class="hover:underline">
+                                    http://localhost:8000/url/<%= url.shortUrl %>
+                                </a>
+                            </td>
+                            <td class="border border-gray-300 px-6 py-3 text-gray-800 truncate">
+                                <%= url.redirectURL %>
+                            </td>
+                            <td class="border border-gray-300 px-6 py-3 text-gray-800">
+                                <%= url.visitHistory.length %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-5xl mx-auto mt-10">
+        <!-- Tips for Managing Your Shortened URLs -->
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tips for Managing Your Shortened URLs</h2>
+        <ul class="list-disc pl-8 text-gray-700 text-lg">
+            <li><strong>Bookmark your short URLs:</strong> Save frequently used links for easy access.</li>
+            <li><strong>Track performance:</strong> Use the "Total Clicks" column to identify your most popular links.
+            </li>
+            <li><strong>Refresh long URLs:</strong> Ensure the original URL remains active to prevent broken links.</li>
+            <li><strong>Use short URLs strategically:</strong> Share them in newsletters, social media, or QR codes for
+                maximum engagement.</li>
+        </ul>
+
+        <!-- Benefits Section -->
+        <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Why Use ShortURL?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">🚀 Quick and Simple</h3>
+                <p>Generate sleek and professional URLs in just a few seconds. Perfect for sharing across all platforms.
+                </p>
+            </div>
+            <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">📊 Trackable</h3>
+                <p>Get insights into your audience by monitoring click performance for every link you create.</p>
+            </div>
+            <div class="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">🛡️ Secure</h3>
+                <p>Shorten URLs with confidence. Your data is protected with industry-standard encryption.</p>
+            </div>
+            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">🔗 Universal Compatibility</h3>
+                <p>Use shortened links across devices and platforms without any hassle.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer Section) -->
+    <footer class="w-full bg-gradient-to-r from-green-600 via-purple-500 to-indigo-500 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- App Name -->
+                <div class="text-3xl font-bold">
+                    <a href="/" class="text-white">URL Shortener</a>
+                </div>
+
+
+                <div class="text-center text-sm">
+                    <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+                    <p>Made with ❤️ by tc choudhary</p>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="mt-6 md:mt-0">
+                    <a href="https://github.com/Tikam12" class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fa-brands fa-github"></i> <!-- github Icon -->
+                    </a>
+                    <a href="https://www.linkedin.com/in/tikam12/" class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fab fa-linkedin"></i> <!-- LinkedIn Icon -->
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=bt21cse031@nituk.ac.in"
+                        class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fa-solid fa-envelope"></i> <!-- Twitter Icon -->
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- FontAwesome Script -->
+    <script src="https://kit.fontawesome.com/c2abc0c376.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

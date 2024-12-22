@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Short URL</title>
+    <style>
+        .navbar-scroll {
+            background-color: #1e3a8a;
+            /* Color on scroll */
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-default {
+            background-color: #2563eb;
+            /* Default navbar color */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar-default fixed top-0 w-full text-white px-4 py-4 z-50 mb-8">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- App Name -->
+            <a href="/" class="italic text-4xl font-bold">URL Shortener</a>
+
+            <!-- Hamburger Menu for Mobile -->
+            <button class="md:hidden text-white focus:outline-none" id="menu-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="hidden md:flex space-x-4" id="menu-links">
+                <% if (locals.user) { %>
+                    <!-- Show Logout button if logged in -->
+                    <a href="/showAllUrls"
+                        class="hover:bg-green-700 bg-green-500 px-3 py-2 rounded text-white shadow transition-all">
+                        All Short URL's
+                    </a>
+                    <button id="desktopLogoutBtn"
+                        class="hover:bg-red-600 bg-red-500 px-3 py-2 rounded text-white shadow transition-all">
+                        Logout
+                    </button>
+
+                    <% } else { %>
+                        <!-- Show Login and Signup buttons if not logged in -->
+                        <a href="/login"
+                            class="hover:bg-blue-700 bg-blue-600 px-3 py-2 rounded text-white shadow transition-all">
+                            Login
+                        </a>
+                        <a href="/signup"
+                            class="hover:bg-green-700 bg-green-500 px-3 py-2 rounded text-white shadow transition-all">
+                            Signup
+                        </a>
+                        <% } %>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden mt-2" id="mobile-menu">
+            <% if (locals.user) { %>
+                <a href="/showAllUrls" class="block px-3 py-2 rounded hover:bg-green-700">All Short URL's</a>
+                <button id="mobileLogoutBtn" class="block px-3 py-2 rounded hover:bg-red-700">Logout</button>
+            <% } else { %>
+                    <a href="/login" class="block px-3 py-2 rounded hover:bg-blue-700">Login</a>
+                    <a href="/signup" class="block px-3 py-2 rounded hover:bg-green-700">Signup</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mx-auto mt-20">
+        <h1 class="text-5xl font-serif text-green-600 text-center p-6">Welcome to URL Shortener!</h1>
+        <p class=" text-center text-gray-700 text-xl mt-4">
+            ShortURL is the ultimate tool to quickly shorten URLs
+            and generate sleek, shareable links. Whether you're sharing on social media,
+            through messaging apps, or in emails, ShortURL makes your links cleaner, more
+            manageable, and ready to share in just a click.
+        </p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="container mx-auto mt-10 px-4">
+        <div class="bg-gradient-to-r from-indigo-500 to-green-500 shadow-lg rounded-lg p-8 md:p-12 text-white">
+            <!-- Title -->
+            <h1 class="text-4xl font-extrabold text-center mb-6">
+                Transform Your Loooong Links into Short and Sweet Ones
+            </h1>
+            <p class="text-center text-lg mb-8">
+                Simplify your URLs with ease! Paste your lengthy link below, click "Shorten", and share your sleek new
+                link effortlessly.
+            </p>
+
+            <!-- Form Section -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <form method="POST" action="/url" id="dataForm">
+                    <div class="flex flex-col md:flex-row items-center gap-4">
+                        <!-- Input Field -->
+                        <input id="inputField" name="input" type="text" placeholder="https://example.com"
+                            class="w-full md:w-5/6 px-4 py-3 border text-gray-700 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required />
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-green-400 to-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:from-green-500 hover:to-blue-700 focus:outline-none transition-all">
+                            Shorten URL
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Decorative Section -->
+            <div class="mt-6 text-center">
+                <p class="text-sm">✨ Fast, Secure, and Reliable ✨</p>
+                <p class="text-xs text-gray-200 mt-1">Your data is safe with us.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Features Section -->
+    <div class="bg-gray-100 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">Simplify Your Links with Ease!</h2>
+            <p class="text-gray-700 text-lg mb-8">
+                Transform long, cluttered URLs into sleek, shareable links. ShortURL lets you quickly create shortened
+                URLs
+                perfect for sharing across social media, messages, emails, or anywhere else. Track clicks and manage
+                your links effortlessly.
+            </p>
+
+            <!-- Features Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">🚀</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Quick and Reliable</h3>
+                    <p class="text-gray-600 mt-2">
+                        Generate shortened links in seconds. Use them in ads, blogs, forums, or messages, and track
+                        clicks with detailed stats.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">🎯</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">User-Friendly</h3>
+                    <p class="text-gray-600 mt-2">
+                        Simplify the process of link sharing. Enter any URL, and we'll give you a cleaner, more
+                        professional link in no time.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">🔗</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Universal Compatibility</h3>
+                    <p class="text-gray-600 mt-2">
+                        Shorten URLs for any platform—social media, emails, or websites. Works seamlessly across
+                        devices.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">🛡️</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Secure Sharing</h3>
+                    <p class="text-gray-600 mt-2">
+                        Share your links confidently. Our service is backed by HTTPS encryption to protect your data.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">📈</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Track Performance</h3>
+                    <p class="text-gray-600 mt-2">
+                        Monitor how many clicks your links receive and gain insights into your audience's behavior.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">✔️</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Trusted Service</h3>
+                    <p class="text-gray-600 mt-2">
+                        Say goodbye to spam and malicious links. We ensure all URLs comply with safety standards.
+                    </p>
+                </div>
+
+                <!-- Feature 7 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <span class="text-4xl">💻</span>
+                    <h3 class="text-xl font-semibold text-blue-500 mt-4">Cross-Device Support</h3>
+                    <p class="text-gray-600 mt-2">
+                        Compatible with all devices—smartphones, tablets, or desktops. Your links work everywhere.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section) -->
+    <footer class="bg-gradient-to-r from-green-600 via-purple-500 to-indigo-500 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- App Name -->
+                <div class="text-3xl font-bold">
+                    <a href="/" class="text-white">URL Shortener</a>
+                </div>
+
+
+                <div class="text-center text-sm">
+                    <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+                    <p>Made with ❤️ by tc choudhary</p>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="mt-6 md:mt-0">
+                    <a href="https://github.com/Tikam12" class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fa-brands fa-github"></i> <!-- github Icon -->
+                    </a>
+                    <a href="https://www.linkedin.com/in/tikam12/" class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fab fa-linkedin"></i> <!-- LinkedIn Icon -->
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=bt21cse031@nituk.ac.in"
+                        class="text-white text-xl mx-4 hover:text-[#FFE2E2]">
+                        <i class="fa-solid fa-envelope"></i> <!-- Twitter Icon -->
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- FontAwesome Script -->
+    <script src="https://kit.fontawesome.com/c2abc0c376.js" crossorigin="anonymous"></script>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        const local = "<% locals %>";
+        console.log(local);
+        const desktopLogoutBtn = document.getElementById('desktopLogoutBtn');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        async function handleLogout() {
+            try {
+                const response = await fetch('/user/logout', {
+                    method: 'POST',
+                    // credentials: 'include', // Include cookies in the request if needed
+                });
+
+                if (response.ok) {
+                    document.cookie = 'uid=; Max-Age=0; path=/';
+                    window.location.href = '/';
+                } else {
+                    alert('Error logging out.');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out.');
+            }
+        }
+
+        // Attach event listeners
+        if (desktopLogoutBtn) {
+            desktopLogoutBtn.addEventListener('click', handleLogout);
+        }
+        else if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', handleLogout);
+        }
+
+        // Toggle mobile menu
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('block');
+        });
+
+    </script>
+</body>
+
+</html>
