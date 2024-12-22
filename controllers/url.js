@@ -24,7 +24,7 @@ async function handleGenerateNewShortURL(req, res) {
 
         return res.render("showShortUrl", {
             url: newUrl,
-            shortUrl: `https://urlshortener/${id}`,
+            shortUrl: `https://shorturl-i6my.onrender.com/${id}`,
         });
     } catch (error) {
         console.error("Error generating short URL:", error);
